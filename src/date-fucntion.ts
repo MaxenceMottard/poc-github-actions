@@ -3,7 +3,6 @@ const months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet'
 
 const formatDate = (date: string): string => {
   const dateObject = new Date(date);
-
   return `${days[dateObject.getDay()]} ${dateObject.getDate()} ${months[dateObject.getMonth()]} ${dateObject.getFullYear()}`;
 };
 
