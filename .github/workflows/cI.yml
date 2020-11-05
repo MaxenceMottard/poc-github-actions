@@ -11,15 +11,26 @@ jobs:
     name: Deploy on VPS
     runs-on: ubuntu-latest
     steps:
-      - name: SSH Commands
-        uses: appleboy/ssh-action@v0.0.7
+      - uses: actions/checkout@v2
+      - uses: borales/actions-yarn@v2.0.0
+          with:
+            cmd: install
+      - uses: borales/actions-yarn@v2.0.0
+          with:
+            cmd: build
+      - uses: borales/actions-yarn@v2.0.0
+          with:
+            cmd: lint
+      #     - uses: borales/actions-yarn@v2.0.0
+      #        with:
+      #          cmd: test
+      - name: rsync deployments
+        uses: burnett01/rsync-deployments@4.1
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          port: ${{ secrets.PORT }}
-          script: |
-            cd ./web-fullstack-cicd-demo;
-            git checkout $GITHUB_SHA;
-            yarn build
-            yarn start
+          switches: -avzr --delete --exclude="" --include="" --filter=""
+          path: src/
+          remote_path: /root/web-fullstack-cicd-demo/
+          remote_host: ${{ secrets.HOST }}
+          remote_port: 22
+          remote_user: ${{ secrets.USERNAME }}
+          remote_key: ${{ secrets.SSH_KEY }}
