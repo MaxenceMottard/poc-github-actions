@@ -19,6 +19,7 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           script: |
-            cd ./file-server-node;
-            git pull;
-            docker-compose -f docker/docker-compose.yml up --build --force-recreate --detach;
+            cd ./web-fullstack-cicd-demo;
+            git checkout $GITHUB_SHA;
+            yarn build
+            yarn start
