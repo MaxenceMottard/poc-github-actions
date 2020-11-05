@@ -28,7 +28,7 @@ jobs:
         uses: burnett01/rsync-deployments@4.1
         with:
           switches: -avzr --delete --exclude="" --include="" --filter=""
-          path: src/
+          path: ./
           remote_path: /root/web-fullstack-cicd-demo/
           remote_host: ${{ secrets.HOST }}
           remote_port: 22
