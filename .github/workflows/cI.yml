@@ -1,0 +1,24 @@
+name: SSH
+on:
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - '**.md'
+jobs:
+
+  build:
+    name: Deploy on VPS
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH Commands
+        uses: appleboy/ssh-action@v0.0.7
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd ./file-server-node;
+            git pull;
+            docker-compose -f docker/docker-compose.yml up --build --force-recreate --detach;
