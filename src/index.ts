@@ -1,4 +1,3 @@
-import formatDate from "./date-fucntion";
+import formatDate from './date-fucntion';
 
-
-console.log(formatDate("1999-04-14"));
+console.log(formatDate('1999-04-14'));
